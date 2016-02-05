@@ -7,46 +7,40 @@
             $scope.error = false;
             var numQuestionsAnswered = 0;
             
-
             $scope.setActiveQuestion = function(data){
-                if(typeof data === "undefined"){
+                if(!data){
                     var breakOut = false;
-                    var origActiveQuestion = $scope.activeQuestion;
+                    var quizLength = quizMetrics.questions.length - 1;
                     while(!breakOut){
-                        $scope.activeQuestion++;
-                        if(quizMetrics.questions[$scope.activeQuestion].selected === null){
+                        $scope.activeQuestion = $scope.activeQuestion < quizLength?++$scope.activeQuestion:0;
+                        if(!quizMetrics.questions[$scope.activeQuestion].selected){
                             breakOut = true;
-                        }else if($scope.activeQuestion === quizMetrics.questions.length - 1 && numQuestionsAnswered === quizMetrics.questions.length - 1){
-                            $scope.activeQuestion = origActiveQuestion;
+                        }else if($scope.activeQuestion === quizLength){
                             // trigger display error here
                             $scope.error = true;
-                            breakOut = true;
-                        }else{
-                            $scope.questionsAnswered();
                         }
                     }
                 }else{
                     $scope.activeQuestion = data; 
                 }
-                
             }
             $scope.questionAnswered = function(){
-                if(quizMetrics.questions[$scope.activeQuestion].selected != null){
+                var quizLength = quizMetrics.questions.length; 
+                if(quizMetrics.questions[$scope.activeQuestion].selected){
                     numQuestionsAnswered++;
+                    if(numQuestionsAnswered >= quizLength){
+                        $scope.finalise = true;
+                        $scope.error = false;
+                        return;
+                    }
                 }
-                if(numQuestionsAnswered >= quizMetrics.questions.length){
-                    $scope.finalise = true;
-                    $scope.error = false;
-                    return;
-                }
-                
-                if($scope.activeQuestion < quizMetrics.questions.length - 1){
+                if($scope.activeQuestion < quizLength - 1){
                     $scope.setActiveQuestion();
-                }else if($scope.activeQuestion === quizMetrics.questions.length - 1){
-                    for(var i = 0; i < quizMetrics.questions.length; i++){
+                }else if($scope.activeQuestion === quizLength - 1){
+                    for(var i = 0; i < quizLength; i++){
                         data = quizMetrics.questions[i];
 
-                        if(data.selected === null){
+                        if(!data.selected){
                             // trigger display error here
                             $scope.error = true;
                             $scope.setActiveQuestion(i);

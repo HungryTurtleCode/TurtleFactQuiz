@@ -1,0 +1,79 @@
+<div ng-controller="resultsCtrl" ng-show="quizMetrics.resultsActive">
+    <div class="row">
+        <div class="col-xs-8">
+            <h2>Results:</h2>
+            <div class="btn-toolbar">
+                <button class="btn" 
+                    ng-repeat="question in quizMetrics.questions" 
+                    ng-class="{'btn-success': question.correct, 'btn-danger': !question.correct}"
+                    ng-click="setActiveQuestion($index)">
+                        <!-- display glyphicons -->
+                        <span class="glyphicon" 
+                            ng-class="{'glyphicon-ok': question.correct, 'glyphicon-remove': !question.correct}"></span>
+                </button>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="row">
+                <h4>Legend:</h4>
+                <div class="col-sm-4">
+                    <button class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                    <p>Correct</p>
+                </div>
+                <div class="col-xs-4">
+                    <button class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    <p>Incorrect</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 top-buffer">
+            <h2>You scored {{quizMetrics.numCorrect}} / {{quizMetrics.questions.length}}</h2>
+            <h2><strong>{{calculatePerc() | number:2}}%</strong></h2>
+        </div>
+    </div>
+    <div class="row">
+        <h3>Question:</h3>
+        <div class="well well-sm">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h4>{{activeQuestion + 1 + ". " + quizMetrics.questions[activeQuestion].text}}</h4>
+                    <div class="row"
+                        ng-show="quizMetrics.questions[activeQuestion].type == 'text'">
+
+                        <div class="col-sm-6"
+                            ng-repeat="answer in quizMetrics.questions[activeQuestion].possibilities">
+                                <h4 class="answer"
+                                    ng-class="getAnswerClass($index)">
+                                        {{ answer.answer }}
+                                         <p ng-show="$index != quizMetrics.correctAnswers[activeQuestion] && $index === quizMetrics.questions[activeQuestion].selected" class="pull-right">Your Answer</p>
+                                         <p ng-show="$index === quizMetrics.correctAnswers[activeQuestion] "class="pull-right">Correct Answer</p>
+                                </h4>
+                        </div>
+                    </div>
+
+                    <div class="row"
+                        ng-show="quizMetrics.questions[activeQuestion].type == 'image'">
+
+                        <div class="col-sm-6"
+                            ng-repeat="answer in quizMetrics.questions[activeQuestion].possibilities">
+
+                                <div class="image-answer"
+                                    ng-class="getAnswerClass($index)"
+                                    ng-click="selectAnswer($index)">
+                                    <img ng-src="{{answer.answer}}">
+                                </div>
+
+                        </div>
+
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary btn-lg" ng-click="reset()">Go Back Facts</button>
+    </div>
+</div>

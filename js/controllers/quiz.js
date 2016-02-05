@@ -26,7 +26,7 @@
             }
             $scope.questionAnswered = function(){
                 var quizLength = quizMetrics.questions.length; 
-                if(quizMetrics.questions[$scope.activeQuestion].selected){
+                if(quizMetrics.questions[$scope.activeQuestion].selected !== null){
                     numQuestionsAnswered++;
                     if(numQuestionsAnswered >= quizLength){
                         $scope.finalise = true;

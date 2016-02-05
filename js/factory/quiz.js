@@ -8,6 +8,7 @@
             quizObj.correctAnswers = [];
             quizObj.quizActive = false;
             quizObj.resultsActive = false;
+            quizObj.numCorrect = 0;
 
             quizObj.changeState = function(metric, state){
                 if(metric === "quiz"){
@@ -25,6 +26,7 @@
                 for(var i = 0; i < quizObj.questions.length; i++){
                     if(quizObj.questions[i].selected === quizObj.correctAnswers[i]){
                         quizObj.questions[i].correct = true;
+                        quizObj.numCorrect++;
                     }else{
                         quizObj.questions[i].correct = false;
                     }

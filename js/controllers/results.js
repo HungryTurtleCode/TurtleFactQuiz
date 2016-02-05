@@ -24,6 +24,9 @@
                     data.answered = false;
                 }
             }
+            $scope.calculatePerc = function(){
+                return quizMetrics.numCorrect / quizMetrics.questions.length * 100;
+            }
 
         });
 })();

@@ -4,6 +4,7 @@
             $scope.quizMetrics = quizMetrics;
             $scope.activeQuestion = 0;
             $scope.finalise = false;
+            $scope.error = false;
             var numQuestionsAnswered = 0;
             
 
@@ -18,7 +19,7 @@
                         }else if($scope.activeQuestion === quizMetrics.questions.length - 1 && numQuestionsAnswered === quizMetrics.questions.length - 1){
                             $scope.activeQuestion = origActiveQuestion;
                             // trigger display error here
-                            console.log("error");
+                            $scope.error = true;
                             breakOut = true;
                         }else{
                             $scope.questionsAnswered();
@@ -27,14 +28,15 @@
                 }else{
                     $scope.activeQuestion = data; 
                 }
+                
             }
             $scope.questionAnswered = function(){
                 if(quizMetrics.questions[$scope.activeQuestion].selected != null){
-                    quizMetrics.questions[$scope.activeQuestion].answered = true;
                     numQuestionsAnswered++;
                 }
                 if(numQuestionsAnswered >= quizMetrics.questions.length){
                     $scope.finalise = true;
+                    $scope.error = false;
                     return;
                 }
                 
@@ -46,7 +48,7 @@
 
                         if(data.selected === null){
                             // trigger display error here
-                            console.log("error");
+                            $scope.error = true;
                             $scope.setActiveQuestion(i);
                             break;
                         }

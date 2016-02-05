@@ -48,26 +48,27 @@
 
     var quizQuestions  = [
         {
+            type: "image",
             text: "This is the questions text 0",
             possibilities: [
                 {
-                    answer: "Hello this is question 0"
+                    answer: "https://placeholdit.imgix.net/~text?txtsize=33&txt=800%C3%97800&w=800&h=800"
                 },
                 {
-                    answer: "Hello this is question 1"
+                    answer: "https://placeholdit.imgix.net/~text?txtsize=33&txt=800%C3%97800&w=800&h=800"
                 },
                 {
-                    answer: "Hello this is question 2"
+                    answer: "https://placeholdit.imgix.net/~text?txtsize=33&txt=800%C3%97800&w=800&h=800"
                 },
                 {
-                    answer: "Hello this is question 3"
+                    answer: "https://placeholdit.imgix.net/~text?txtsize=33&txt=800%C3%97800&w=800&h=800"
                 }
             ],
-            answered: false,
             selected: null,
             correct: null
         },
         {
+            type: "text",
             text: "This is the questions text 1",
             possibilities: [
                 {
@@ -83,11 +84,11 @@
                     answer: "Hello this is question 3"
                 }
             ],
-            answered: false,
             selected: null,
             correct: null
         },
         {
+            type: "text",
             text: "This is the questions text 2",
             possibilities: [
                 {
@@ -103,7 +104,6 @@
                     answer: "Hello this is question 3"
                 }
             ],
-            answered: false,
             selected: null,
             correct: null
         }

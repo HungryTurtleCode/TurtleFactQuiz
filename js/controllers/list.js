@@ -14,7 +14,6 @@
             $scope.activateQuiz = function(state){
                 quizMetrics.changeState("quiz", state);
             }
-
         });
 
 

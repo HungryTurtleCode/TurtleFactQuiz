@@ -23,7 +23,7 @@
                 }else{
                     $scope.activeQuestion = data; 
                 }
-            }
+            };
             $scope.questionAnswered = function(){
                 var quizLength = quizMetrics.questions.length; 
                 if(quizMetrics.questions[$scope.activeQuestion].selected !== null){
@@ -48,10 +48,10 @@
                         }
                     }
                 }
-            }
+            };
             $scope.selectAnswer = function(index){
                 quizMetrics.questions[$scope.activeQuestion].selected = index;
-            }
+            };
             $scope.finaliseAnswers = function(){
                 $scope.finalise = false;
                 numQuestionsAnswered = 0;
@@ -59,7 +59,7 @@
                 quizMetrics.markQuiz();
                 quizMetrics.changeState("quiz", false);
                 quizMetrics.changeState("results", true);
-            } 
+            };
         });
 
 })();

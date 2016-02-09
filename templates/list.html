@@ -29,8 +29,8 @@
                         <p>
                             <!-- more angular data binding -->
                             <strong>Location(s):</strong> {{turtle.locations}}<br>
-                            <strong>Size:</strong>{{turtle.size}}<br>
-                            <strong>Average Lifespan:</strong>{{turtle.lifespan}}<br>
+                            <strong>Size: </strong>{{turtle.size}}<br>
+                            <strong>Average Lifespan: </strong>{{turtle.lifespan}}<br>
                             <strong>Diet:</strong> {{turtle.diet}}<br>
                         </p>
                         <!-- ng-click is an angular directive to allow click events within angular -->
@@ -69,13 +69,13 @@
                         <div class="col-md-6 ">
                             <!-- angular data binding -->
                             <strong>Location(s):</strong> {{list.activeTurtle.locations}}<br>
-                            <strong>Size:</strong>{{list.activeTurtle.size}}<br>
-                            <strong>Average Lifespan:</strong>{{list.activeTurtle.lifespan}}<br>
+                            <strong>Size:</strong> {{list.activeTurtle.size}}<br>
+                            <strong>Average Lifespan:</strong> {{list.activeTurtle.lifespan}}<br>
                             <strong>Diet:</strong> {{list.activeTurtle.diet}}<br>
                         </div>
                         <div class="col-md-12 top-buffer">
                             <!-- angular data binding and data-dismiss for bootstrap -->
-                            <p>{{activeTurtle.description}}</p>
+                            <p>{{list.activeTurtle.description}}</p>
                             <button data-dismiss="modal" class="btn btn-danger pull-right">Close</button>
                         </div>
                     </div>

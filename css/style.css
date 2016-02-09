@@ -34,3 +34,6 @@
 .image-answer.bg-danger{
     border: 3px solid #b74848;
 }
+.btn-toolbar>.btn{
+    margin-bottom: 5px;
+}

@@ -14,14 +14,16 @@
      * without breaking the code. This is acheived by passing the dependencies 
      * as strings in an array through the $inject method to the controller.
      */
-    ListController.$inject = ['$scope', 'quizMetrics', 'DataService'];
+    ListController.$inject = ['quizMetrics', 'DataService'];
 
     /*
      * Definition for the List controller. quizMetrics and dataService are two
      * services that are created in js/factory/quiz.js and js/factory/dataService.js
-     * respectively. $scope is a native angular service.
+     * respectively. 
      */
-    function ListController($scope, quizMetrics, dataService){
+    function ListController(quizMetrics, dataService){
+
+        var vm = this;
 
         /*
          * The interface for the controller. The below code shows all the 
@@ -33,17 +35,17 @@
          * available in the controller while the implementation remains at the 
          * bottom.
          */
-        $scope.quizMetrics = quizMetrics; // Controllers reference to the quiz data from factory
-        $scope.data = dataService.turtlesData; // Controller reference to the turtle info created in the factory
-        $scope.changeActiveTurtle = changeActiveTurtle; // reference to a named function below
-        $scope.activateQuiz = activateQuiz; // reference to named function below
-        $scope.activeTurtle = {}; // will be used in the view to hold the data of currently active turtle
-        $scope.search = ""; // will hold the search query when user uses search bar in view
+        vm.quizMetrics = quizMetrics; // Controllers reference to the quiz data from factory
+        vm.data = dataService.turtlesData; // Controller reference to the turtle info created in the factory
+        vm.changeActiveTurtle = changeActiveTurtle; // reference to a named function below
+        vm.activateQuiz = activateQuiz; // reference to named function below
+        vm.activeTurtle = {}; // will be used in the view to hold the data of currently active turtle
+        vm.search = ""; // will hold the search query when user uses search bar in view
 
         function changeActiveTurtle(data){
             // simple function to attach the data of the turtle clicked on to 
             // the active turtle object
-            $scope.activeTurtle = data;
+            vm.activeTurtle = data;
         }
         function activateQuiz(state){
             /*

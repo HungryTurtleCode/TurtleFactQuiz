@@ -11,8 +11,8 @@
         .controller("resultsCtrl", ResultsController);
 
     /*
-     * injecting the angular service $scope and custom service quizMetrics into
-     * the results controller using the $inject method.
+     * injecting the custom service quizMetrics into the results controller 
+     * using the $inject method.
      *
      * Injecting dependencies like this is done so as to avoid issues when 
      * uglifying the code. Function arguments will get shortened during the 
@@ -20,13 +20,16 @@
      * as strings in an array using the $inject method we can be sure angular 
      * still knows what we want to do.
      */
-    ResultsController.$inject = ['$scope', 'quizMetrics'];
+    ResultsController.$inject = ['quizMetrics'];
 
     /*
-     * definition of the results controller function itself. Taking $scope and 
-     * quizMetrics as arguments
+     * definition of the results controller function itself. Taking 
+     * quizMetrics as an argument
      */
-    function ResultsController($scope, quizMetrics){
+    function ResultsController(quizMetrics){
+
+        var vm = this;
+
         /*
          * The pattern used in the controllers in this app puts all the 
          * properties and methods available to the view at the top of the 
@@ -37,31 +40,32 @@
          * Which is not usually the case when defining methods as anon 
          * functions inline.
          */
-        $scope.quizMetrics = quizMetrics;   // binding the object from factory to $scope.
-        $scope.setActiveQuestion = setActiveQuestion;   // named function defined below
-        $scope.getAnswerClass = getAnswerClass; // named function defined below
-        $scope.reset = reset; // named function defined below
-        $scope.calculatePerc = calculatePerc; // named function defined below
-        $scope.activeQuestion = 0; 
+        vm.quizMetrics = quizMetrics;   // binding the object from factory to vm 
+        vm.setActiveQuestion = setActiveQuestion;   // named function defined below
+        vm.getAnswerClass = getAnswerClass; // named function defined below
+        vm.reset = reset; // named function defined below
+        vm.calculatePerc = calculatePerc; // named function defined below
+        vm.activeQuestion = 0; 
 
         function setActiveQuestion(index){
             /*
              * setting active question on the results page
              */
-            $scope.activeQuestion = index;
+            vm.activeQuestion = index;
         }
         function getAnswerClass(index){
             /*
              * returning the class to style the answer depending on whether it 
-             * is right or wrong quizMetrics can be referenced here without 
-             * $scope as the object is passed by reference. We can manipulate 
-             * the object directly here. $scope is only needed when it is being
+             * is right or wrong. quizMetrics can be referenced here without 
+             * vm. as the object is passed by reference. We can manipulate 
+             * the object directly here. vm. is only needed when it is being
              * manipulated by the view as the view does not have direct access
-             * to the quizMetrics service.
+             * to the quizMetrics service. But as we are in the controller
+             * we can directly manipulate it
              */
-            if(index === quizMetrics.correctAnswers[$scope.activeQuestion]){
+            if(index === quizMetrics.correctAnswers[vm.activeQuestion]){
                 return "bg-success";
-            }else if(index === quizMetrics.questions[$scope.activeQuestion].selected){
+            }else if(index === quizMetrics.questions[vm.activeQuestion].selected){
                 return "bg-danger";
             }
         }
@@ -75,6 +79,7 @@
              * questions.
              */
             quizMetrics.changeState("results", false);
+            quizMetrics.numCorrect = 0;
 
             for(var i = 0; i < quizMetrics.questions.length; i++){
                 data = quizMetrics.questions[i]; //binding the current question to data to keep code clean

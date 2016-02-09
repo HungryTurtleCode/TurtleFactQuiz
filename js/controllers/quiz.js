@@ -20,16 +20,17 @@
      * Passing the dependencies as strings avoids them being changed when 
      * uglified.
      */
-    QuizController.$inject = ['$scope', 'quizMetrics'];
+    QuizController.$inject = ['quizMetrics'];
 
     /*
-     * function defintion of the quiz controller with $scope and quizMetrics as
-     * args. 
+     * function defintion of the quiz controller with quizMetrics as args. 
      *
-     * $scope is a angular service and quizMetrics is a service we created that
+     * quizMetrics is a service we created that
      * is defined in js/factory/quiz.js
      */
-    function QuizController($scope, quizMetrics){
+    function QuizController(quizMetrics){
+
+        var vm = this;
 
         /*
          * All the properties and methods that will be exposed to the view are 
@@ -40,14 +41,14 @@
          * Any methods declared below are done so by using named functions. 
          * These functions are then defined further down the page
          */
-        $scope.quizMetrics = quizMetrics; // Attaching the quizMetrics object to the $scope object
-        $scope.setActiveQuestion = setActiveQuestion; // setActiveQuestion is a named function below
-        $scope.questionAnswered = questionAnswered; // also a named function defined below
-        $scope.selectAnswer = selectAnswer; // also a named function
-        $scope.finaliseAnswers = finaliseAnswers; //also a named function
-        $scope.activeQuestion = 0; // currently active question in the quiz
-        $scope.finalise = false; // finalise flag. Will be set to show prompt to end quiz
-        $scope.error = false; // error flag. Will be set when user tries to finish quiz with 
+        vm.quizMetrics = quizMetrics; // Attaching the quizMetrics object to the view model
+        vm.setActiveQuestion = setActiveQuestion; // setActiveQuestion is a named function below
+        vm.questionAnswered = questionAnswered; // also a named function defined below
+        vm.selectAnswer = selectAnswer; // also a named function
+        vm.finaliseAnswers = finaliseAnswers; //also a named function
+        vm.activeQuestion = 0; // currently active question in the quiz
+        vm.finalise = false; // finalise flag. Will be set to show prompt to end quiz
+        vm.error = false; // error flag. Will be set when user tries to finish quiz with 
                               // all questions answered
 
         var numQuestionsAnswered = 0; // This is not needed by the view so is only declared using var
@@ -83,8 +84,8 @@
                 while(!breakOut){
                     // check if last question is reach, if not increment. If it
                     // has go back to start.
-                    $scope.activeQuestion = 
-                      $scope.activeQuestion < quizLength?++$scope.activeQuestion:0;
+                    vm.activeQuestion = 
+                      vm.activeQuestion < quizLength?++vm.activeQuestion:0;
                     
                     /*
                      * activeQuestion has looped back to start. Meaning user has
@@ -92,20 +93,20 @@
                      * show a warning. This is done by setting the error flag to
                      * true.
                      */
-                    if($scope.activeQuestion === 0){
-                        $scope.error = true;
+                    if(vm.activeQuestion === 0){
+                        vm.error = true;
                     }
 
                     // if current active question has not been selected, break 
                     // out the while loop
-                    if(quizMetrics.questions[$scope.activeQuestion].selected === null){
+                    if(quizMetrics.questions[vm.activeQuestion].selected === null){
                         breakOut = true;
                     }
                 }
             }else{
                 // Data was passed into the function therefore
                 // Set activeQuestion to the index of the button pressed
-                $scope.activeQuestion = data;
+                vm.activeQuestion = data;
             }
         }
 
@@ -131,7 +132,7 @@
         function questionAnswered(){
             // set quizLength variable to keep code clean
             var quizLength = quizMetrics.questions.length; 
-            if(quizMetrics.questions[$scope.activeQuestion].selected !== null){
+            if(quizMetrics.questions[vm.activeQuestion].selected !== null){
                 numQuestionsAnswered++;
                 if(numQuestionsAnswered >= quizLength){
                     // final check to ensure all questions are actuall answered
@@ -147,8 +148,8 @@
                         }
                     }
                     // set finalise flag and remove any existing warnings
-                    $scope.finalise = true;
-                    $scope.error = false;
+                    vm.finalise = true;
+                    vm.error = false;
                     return;
                 }
             }
@@ -156,7 +157,7 @@
              * There are still questions to answer so increment to next 
              * unanswered question using the setActiveQuestion method
              */
-            $scope.setActiveQuestion();
+            vm.setActiveQuestion();
         }
 
         /*
@@ -166,7 +167,7 @@
          * the current selection
          */
         function selectAnswer(index){
-            quizMetrics.questions[$scope.activeQuestion].selected = index;
+            quizMetrics.questions[vm.activeQuestion].selected = index;
         }
 
         /*
@@ -185,9 +186,9 @@
          *              state to true
          */
         function finaliseAnswers(){
-            $scope.finalise = false;
+            vm.finalise = false;
             numQuestionsAnswered = 0;
-            $scope.activeQuestion = 0;
+            vm.activeQuestion = 0;
             quizMetrics.markQuiz();
             quizMetrics.changeState("quiz", false);
             quizMetrics.changeState("results", true);

@@ -1,5 +1,5 @@
 <!-- Attach the quizCtrl to the view and ng-show when the quizActive flag is set -->
-<div ng-controller="quizCtrl" ng-show="quizMetrics.quizActive">
+<div ng-controller="quizCtrl as quiz" ng-show="quiz.quizMetrics.quizActive">
     <div class="row">
         <div class="col-xs-8">
             <h2>Progress:</h2>
@@ -9,9 +9,9 @@
                 <!-- ng-click to call method setActiveQuestion to move to selected question -->
                 <!-- the $index argument is an angular variable that contains the index of the current ng-repeat iteration -->
                 <button class="btn" 
-                    ng-repeat="question in quizMetrics.questions" 
+                    ng-repeat="question in quiz.quizMetrics.questions" 
                     ng-class="{'btn-info': question.selected != null, 'btn-danger': question.selected === null}"
-                    ng-click="setActiveQuestion($index)">
+                    ng-click="quiz.setActiveQuestion($index)">
                         <!-- display glyphicons -->
                         <!-- ng-class to style glypicons -->
                         <span class="glyphicon" 
@@ -39,32 +39,32 @@
     </div>
     <div class="row">
         <div class="alert alert-danger"
-                ng-show="error">
+                ng-show="quiz.error">
                     Error! You have not answered all the questions.
             <button class="close" 
-                ng-click="error = false;"><span>&times;</span></button>
+                ng-click="quiz.error = false;"><span>&times;</span></button>
         </div>
         <h3>Question:</h3>
-        <div class="well well-sm" ng-hide="finalise">
+        <div class="well well-sm" ng-hide="quiz.finalise">
             <div class="row">
                 <div class="col-xs-12">
                     <!-- angular {{}} notation for expressions to be evaluated -->
                     <!-- adds 1 to activeQuestion as it is zero index. Then displays the question -->
                     <!-- will be in the form of "3. this is the third question" -->
                     <!-- where the 3. is the incremented activeQuestion -->
-                    <h4>{{activeQuestion + 1 + ". " + quizMetrics.questions[activeQuestion].text}}</h4>
+                    <h4>{{quiz.activeQuestion + 1 + ". " + quiz.quizMetrics.questions[quiz.activeQuestion].text}}</h4>
                     <!-- ng-if will only render the below markup when true. Unlike ng-show or ng-hide which -->
                     <!-- simply doesnt show the markup, but it is still rendered in the source. -->
                     <!-- ng-if will not even render the markup -->
                     <!-- this is done in the below two sections to aviod a url being displayed as a question -->
                     <!-- or text being entered as an image url and causing issues -->
                     <div class="row"
-                        ng-if="quizMetrics.questions[activeQuestion].type == 'text'">
+                        ng-if="quiz.quizMetrics.questions[quiz.activeQuestion].type == 'text'">
                         <div class="col-sm-6"
-                            ng-repeat="answer in quizMetrics.questions[activeQuestion].possibilities">
+                            ng-repeat="answer in quiz.quizMetrics.questions[quiz.activeQuestion].possibilities">
                                 <h4 class="answer"
-                                    ng-class="{'bg-info': $index === quizMetrics.questions[activeQuestion].selected}"
-                                    ng-click="selectAnswer($index)">
+                                    ng-class="{'bg-info': $index === quiz.quizMetrics.questions[quiz.activeQuestion].selected}"
+                                    ng-click="quiz.selectAnswer($index)">
                                          {{answer.answer}}
                                 </h4>
                         </div>
@@ -73,14 +73,14 @@
                     <!-- only the below section or the above section will display, never both -->
                     <!-- this will depend on if the current question is set to image or text -->
                     <div class="row"
-                        ng-if="quizMetrics.questions[activeQuestion].type === 'image'">
+                        ng-if="quiz.quizMetrics.questions[quiz.activeQuestion].type === 'image'">
                         <!-- more bootstrap and another ng-repeat, this time looping through the possible answers -->
                         <div class="col-sm-6"
-                            ng-repeat="answer in quizMetrics.questions[activeQuestion].possibilities">
+                            ng-repeat="answer in quiz.quizMetrics.questions[quiz.activeQuestion].possibilities">
 
                                 <div class="image-answer"
-                                    ng-class="{'image-selected': $index === quizMetrics.questions[activeQuestion].selected}"
-                                    ng-click="selectAnswer($index)">
+                                    ng-class="{'image-selected': $index === quiz.quizMetrics.questions[quiz.activeQuestion].selected}"
+                                    ng-click="quiz.selectAnswer($index)">
                                     <img ng-src="{{answer.answer}}">
                                 </div>
 
@@ -89,19 +89,19 @@
                 </div>
             </div>
             <!-- ng-click will call the questionAnswered method on the controller -->
-            <button class="btn btn-warning" ng-click="questionAnswered()">Continue</button>
+            <button class="btn btn-warning" ng-click="quiz.questionAnswered()">Continue</button>
         </div>
 
         <!-- this section is the prompt to be show when the user finishes the quiz to ensure they want to continue -->
         <!-- it only shows when the finalise flag is true -->
         <!-- clicking yes will call the finaliseAnswers method which will send the user to the results page -->
         <!-- clicking no will remove the finalise flag and this put the user back into the quiz interface -->
-        <div class="well well-sm" ng-show="finalise">
+        <div class="well well-sm" ng-show="quiz.finalise">
             <div class="row">
                 <div class="col-xs-12">
                     <h3>Are You Sure You Want To Submit Your Answers?</h3>
-                    <button class="btn btn-success" ng-click="finaliseAnswers()">Yes</button>
-                    <button class="btn btn-danger" ng-click="finalise = false">No</button>
+                    <button class="btn btn-success" ng-click="quiz.finaliseAnswers()">Yes</button>
+                    <button class="btn btn-danger" ng-click="quiz.finalise = false">No</button>
                 </div>
             </div>
         </div>

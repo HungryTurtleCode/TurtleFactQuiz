@@ -1,5 +1,5 @@
 <!-- letting angular know which controller to use for this view and when to show the view using ng-show -->
-<div ng-controller="resultsCtrl" ng-show="quizMetrics.resultsActive">
+<div ng-controller="resultsCtrl as results" ng-show="results.quizMetrics.resultsActive">
     <div class="row">
         <div class="col-xs-8">
             <h2>Results:</h2>
@@ -15,9 +15,9 @@
                 <!-- the method is passed the $index as an argument. $index is built into angular and holds -->
                 <!-- the current index of the ng-repeat loop -->
                 <button class="btn" 
-                    ng-repeat="question in quizMetrics.questions" 
+                    ng-repeat="question in results.quizMetrics.questions" 
                     ng-class="{'btn-success': question.correct, 'btn-danger': !question.correct}"
-                    ng-click="setActiveQuestion($index)">
+                    ng-click="results.setActiveQuestion($index)">
                         <!-- display glyphicons -->
                         <!-- ng-class is utilsed again to style the glyphicons conditionally -->
                         <span class="glyphicon" 
@@ -48,10 +48,10 @@
     <div class="row">
         <div class="col-xs-12 top-buffer">
             <!-- the score is displayed using simple angular expressions -->
-            <h2>You scored {{quizMetrics.numCorrect}} / {{quizMetrics.questions.length}}</h2>
+            <h2>You scored {{results.quizMetrics.numCorrect}} / {{results.quizMetrics.questions.length}}</h2>
             <!-- the percentage is calculated using a method which is then filtered using the number filter -->
             <!-- which ensures only 2 decimal places will be shown -->
-            <h2><strong>{{calculatePerc() | number:2}}%</strong></h2>
+            <h2><strong>{{results.calculatePerc() | number:2}}%</strong></h2>
         </div>
     </div>
     <div class="row">
@@ -63,35 +63,35 @@
                     <!-- the angular expression will add 1 to the active question, because it is 0 index -->
                     <!-- it then displays it with a . after it followed by the question. -->
                     <!-- something like this "3. This is the third question:" -->
-                    <h4>{{activeQuestion + 1 + ". " + quizMetrics.questions[activeQuestion].text}}</h4>
+                    <h4>{{results.activeQuestion + 1 + ". " + results.quizMetrics.questions[results.activeQuestion].text}}</h4>
                     <div class="row"
-                        ng-show="quizMetrics.questions[activeQuestion].type == 'text'">
+                        ng-if="results.quizMetrics.questions[results.activeQuestion].type == 'text'">
 
                         <!-- ng-repeat being utilised again -->
                         <div class="col-sm-6"
-                            ng-repeat="answer in quizMetrics.questions[activeQuestion].possibilities">
+                            ng-repeat="answer in results.quizMetrics.questions[results.activeQuestion].possibilities">
                                 <h4 class="answer"
-                                    ng-class="getAnswerClass($index)">
+                                    ng-class="results.getAnswerClass($index)">
                                         {{ answer.answer }}
                                         <!-- more usage of the ng-show directive to selectively show the elements on condition -->
-                                         <p ng-show="$index != quizMetrics.correctAnswers[activeQuestion] && $index === quizMetrics.questions[activeQuestion].selected" class="pull-right">Your Answer</p>
-                                         <p ng-show="$index === quizMetrics.correctAnswers[activeQuestion] "class="pull-right">Correct Answer</p>
+                                         <p ng-show="$index != results.quizMetrics.correctAnswers[results.activeQuestion] && $index === results.quizMetrics.questions[results.activeQuestion].selected" class="pull-right">Your Answer</p>
+                                         <p ng-show="$index === results.quizMetrics.correctAnswers[results.activeQuestion] "class="pull-right">Correct Answer</p>
                                 </h4>
                         </div>
                     </div>
 
                     <!-- more ng-show -->
                     <div class="row"
-                        ng-show="quizMetrics.questions[activeQuestion].type == 'image'">
+                        ng-if="results.quizMetrics.questions[results.activeQuestion].type == 'image'">
 
                         <!-- more ng-repeat -->
                         <div class="col-sm-6"
-                            ng-repeat="answer in quizMetrics.questions[activeQuestion].possibilities">
+                            ng-repeat="answer in results.quizMetrics.questions[results.activeQuestion].possibilities">
 
                                 <!-- ng-class, ng-click and ng-src -->
                                 <div class="image-answer"
-                                    ng-class="getAnswerClass($index)"
-                                    ng-click="selectAnswer($index)">
+                                    ng-class="results.getAnswerClass($index)"
+                                    ng-click="results.selectAnswer($index)">
                                     <img ng-src="{{answer.answer}}">
                                 </div>
 
@@ -101,6 +101,6 @@
             </div>
         </div>
         <!-- ng-click calling the reset method on the controller -->
-        <button class="btn btn-primary btn-lg" ng-click="reset()">Go Back Facts</button>
+        <button class="btn btn-primary btn-lg" ng-click="results.reset()">Go Back Facts</button>
     </div>
 </div>

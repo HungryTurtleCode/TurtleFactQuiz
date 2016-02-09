@@ -27,32 +27,38 @@
             turtlesData: turtlesData
         };
 
-        // returning the dataObj to anything that uses this factory as a dependency
+        // returning the dataObj to anything that uses this factory as a 
+        // dependency
         return dataObj;
     }
 
     /*
-     * all of the below variables are simulating data that would typically be retrieved 
-     * using an HTTP call to an API endpoint.
+     * all of the below variables are simulating data that would typically be 
+     * retrieved using an HTTP call to an API endpoint.
      *
-     * For simplicity sake this data is hardcoded into the app as this tutorial is about 
-     * building the angular app, not the backend.
+     * For simplicity sake this data is hardcoded into the app as this tutorial
+     * is about building the angular app, not the backend.
      *
-     * The correctAnswers variable would be retrieved when the user has finished the quiz
-     * and would be used to mark the users answers against the correct answers
+     * The correctAnswers variable would be retrieved when the user has 
+     * finished the quiz and would be used to mark the users answers against 
+     * the correct answers
      *
-     * the quizQuestions is an array of objects, each containing data pertaining to a single
-     * question. This includes:
+     * the quizQuestions is an array of objects, each containing data 
+     * pertaining to a single question. This includes:
      *                          - The type of question: image or text
      *                          - Text of the question (aka the actual question)
-     *                          - A set of 4 possible answers, either text or images as indicated above
-     *                          - a selected flag which will be used to know if the user has selected 
+     *                          - A set of 4 possible answers, either text or 
+     *                              images as indicated above
+     *                          - a selected flag which will be used to know if
+     *                              the user has selected 
      *                          an answer yet.
-     *                          - Whether the user got the question correct or not
+     *                          - Whether the user got the question correct or 
+     *                              not
      *
-     * The final turtleData variable hold the information that will be displayed in the list view when 
-     * the app loads. This includes the name and an image of each turtle as well as other information 
-     * such as the location and the size of the turtles
+     * The final turtleData variable hold the information that will be 
+     * displayed in the list view when the app loads. This includes the name 
+     * and an image of each turtle as well as other information such as the 
+     * location and the size of the turtles
      *
      */
     var correctAnswers = [1, 3, 0];

@@ -11,13 +11,14 @@
         .controller("resultsCtrl", ResultsController);
 
     /*
-     * injecting the angular service $scope and custom service quizMetrics into 
+     * injecting the angular service $scope and custom service quizMetrics into
      * the results controller using the $inject method.
      *
-     * Injecting dependencies like this is done so as to avoid issues when uglifying
-     * the code. Function arguments will get shortened during the uglify process but
-     * strings will not. Therefore by injecting the arguments as strings in an array
-     * using the $inject method we can be sure angular still knows what we want to do.
+     * Injecting dependencies like this is done so as to avoid issues when 
+     * uglifying the code. Function arguments will get shortened during the 
+     * uglify process but strings will not. Therefore by injecting the argument
+     * as strings in an array using the $inject method we can be sure angular 
+     * still knows what we want to do.
      */
     ResultsController.$inject = ['$scope', 'quizMetrics'];
 
@@ -27,12 +28,14 @@
      */
     function ResultsController($scope, quizMetrics){
         /*
-         * The pattern used in the controllers in this app puts all the properties and 
-         * methods available to the view at the top of the function. Any methods are 
-         * referenced as named functions which are defined at the bottom.
+         * The pattern used in the controllers in this app puts all the 
+         * properties and methods available to the view at the top of the 
+         * function. Any methods are referenced as named functions which are 
+         * defined at the bottom.
          *
-         * This allows the interface of the controller to be seen at a glance. Which is
-         * not usually the case when defining methods as anon functions inline.
+         * This allows the interface of the controller to be seen at a glance. 
+         * Which is not usually the case when defining methods as anon 
+         * functions inline.
          */
         $scope.quizMetrics = quizMetrics;   // binding the object from factory to $scope.
         $scope.setActiveQuestion = setActiveQuestion;   // named function defined below
@@ -49,10 +52,11 @@
         }
         function getAnswerClass(index){
             /*
-             * returning the class to style the answer depending on whether it is right or wrong
-             * quizMetrics can be referenced here without $scope as the object is passed by 
-             * reference. We can manipulate the object directly here. $scope is only needed
-             * when it is being manipulated by the view as the view does not have direct access
+             * returning the class to style the answer depending on whether it 
+             * is right or wrong quizMetrics can be referenced here without 
+             * $scope as the object is passed by reference. We can manipulate 
+             * the object directly here. $scope is only needed when it is being
+             * manipulated by the view as the view does not have direct access
              * to the quizMetrics service.
              */
             if(index === quizMetrics.correctAnswers[$scope.activeQuestion]){
@@ -63,11 +67,12 @@
         }
         function reset(){
             /*
-             * reseting all the data. This includes reverting the results state back to false
-             * which will return the view to the lists.
+             * reseting all the data. This includes reverting the results state
+             * back to false which will return the view to the lists.
              *
-             * Also all the variables on each question object is returned to the default state 
-             * using the for loop to iterate through all questions.
+             * Also all the variables on each question object is returned to 
+             * the default state using the for loop to iterate through all 
+             * questions.
              */
             quizMetrics.changeState("results", false);
 

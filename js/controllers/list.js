@@ -3,7 +3,7 @@
  */
 (function(){
     /*
-     * Creating List controller and attaching it to the main turtleFacts module.
+     * Creating List controller and attaching it to the main turtleFacts module
      */
     angular
         .module("turtleFacts")   
@@ -24,12 +24,14 @@
     function ListController($scope, quizMetrics, dataService){
 
         /*
-         * The interface for the controller. The below code shows all the variables
-         * that are available from inside the view. References to named functions are
-         * used instead of inline anon functions. This increases readability of the code.
+         * The interface for the controller. The below code shows all the 
+         * variables that are available from inside the view. References to 
+         * named functions are used instead of inline anon functions. This 
+         * increases readability of the code.
          *
-         * The interface is at the top to provide a quick overview of what is available 
-         * in the controller while the implementation remains at the bottom.
+         * The interface is at the top to provide a quick overview of what is 
+         * available in the controller while the implementation remains at the 
+         * bottom.
          */
         $scope.quizMetrics = quizMetrics; // Controllers reference to the quiz data from factory
         $scope.data = dataService.turtlesData; // Controller reference to the turtle info created in the factory
@@ -39,12 +41,15 @@
         $scope.search = ""; // will hold the search query when user uses search bar in view
 
         function changeActiveTurtle(data){
-            // simple function to attach the data of the turtle clicked on to the active turtle object
+            // simple function to attach the data of the turtle clicked on to 
+            // the active turtle object
             $scope.activeTurtle = data;
         }
         function activateQuiz(state){
-            /* changeState is a function attached onto the quizMetrics object returned from the factory
-             * It takes two arguments. 1. what to change state of (quiz or results) 2. what new state should be.
+            /*
+             * changeState is a function attached onto the quizMetrics object 
+             * returned from the factory It takes two arguments. 1. what to 
+             * change state of (quiz or results) 2. what new state should be.
              */
             quizMetrics.changeState("quiz", state);
         }

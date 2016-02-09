@@ -1,4 +1,6 @@
+<!-- Hook on the controller for this view and specify when to show it using ng-hide -->
 <div ng-controller="listCtrl" ng-hide="quizMetrics.quizActive || quizMetrics.resultsActive">
+    <!-- top search bar with start quiz button using bootstrap -->
     <form class="form-inline well well-sm clearfix">
         <div class="form-group">
             <span class="glyphicon glyphicon-search"></span>
@@ -6,24 +8,33 @@
         </div>
         <button ng-click="activateQuiz(true)" class="btn btn-warning pull-right"><strong>Start Quiz</strong></button>
     </form>
+    <!-- row to contain the list of turtles -->
     <div class="row">
+        <!-- ng-repeat allows areas of markup to be repeated for a set number of times using model data -->
+        <!-- in this case it is a property on the $scope called data which is being filtered using the search -->
+        <!-- property on the model -->
         <div class="col-xs-12 col-sm-6" ng-repeat="turtle in data | filter:search">
+            <!-- using a bootstrap well to style -->
             <div class="well well-sm">
                 <div class="row">
 
                     <div class="col-md-6">
+                        <!-- ng-src instead of src to allow correct functionality with angular -->
                         <img ng-src="{{turtle.image_url}}" 
-                            alt=""
                             class="well-image img-rounded img-responsive">
                     </div>
                     <div class="col-md-6">
+                        <!-- angular {{}} is used to bind to the viewmodel -->
                         <h4>{{turtle.type}}</h4>
                         <p>
+                            <!-- more angular data binding -->
                             <strong>Location(s):</strong> {{turtle.locations}}<br>
                             <strong>Size:</strong>{{turtle.size}}<br>
                             <strong>Average Lifespan:</strong>{{turtle.lifespan}}<br>
                             <strong>Diet:</strong> {{turtle.diet}}<br>
                         </p>
+                        <!-- ng-click is an angular directive to allow click events within angular -->
+                        <!-- data-toggle and data-target are bootstrap attributes to trigger the popup modal -->
                         <button ng-click="changeActiveTurtle(turtle)" 
                             class="btn btn-primary pull-right" 
                             data-toggle="modal" 
@@ -37,28 +48,33 @@
         </div><!-- col-xs-6 -->            
     </div>
 
-
+    <!-- the markup for the modal -->
     <div class="modal" id="turtle-info">
         <div class="modal-dialog">
             <div class="modal-content">
+                <!-- data-dismiss tells bootstrap this button is to close the modal -->
                 <button class="close" data-dismiss="modal"><span>&times;</span></button>
                 <div class="modal-header">
+                    <!-- more usage of angular data binding -->
                     <h2 class="modal-title">{{activeTurtle.type}}</h2>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-8 col-xs-offset-2">
+                            <!-- ng-src used again instead of src -->
                             <img ng-src="{{activeTurtle.image_url}}" alt="" class="img-rounded img-responsive">
                         </div>
                     </div>
                     <div class="row top-buffer">
                         <div class="col-md-6 ">
+                            <!-- angular data binding -->
                             <strong>Location(s):</strong> {{activeTurtle.locations}}<br>
                             <strong>Size:</strong>{{activeTurtle.size}}<br>
                             <strong>Average Lifespan:</strong>{{activeTurtle.lifespan}}<br>
                             <strong>Diet:</strong> {{activeTurtle.diet}}<br>
                         </div>
                         <div class="col-md-12 top-buffer">
+                            <!-- angular data binding and data-dismiss for bootstrap -->
                             <p>{{activeTurtle.description}}</p>
                             <button data-dismiss="modal" class="btn btn-danger pull-right">Close</button>
                         </div>

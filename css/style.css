@@ -1,9 +1,9 @@
-.top-buffer{
-    margin-top: 30px
-}
 .well-image{
     width: 100%;
-    max-height: 162px
+    height: 162px;
+}
+.top-buffer{
+    margin-top: 30px;
 }
 .answer{
     padding: 15px 20px;
@@ -33,7 +33,4 @@
 }
 .image-answer.bg-danger{
     border: 3px solid #b74848;
-}
-.btn-toolbar>.btn{
-    margin-bottom: 5px;
 }

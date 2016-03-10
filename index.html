@@ -21,8 +21,9 @@
                 <strong>TURTLE QUIZ</strong>
             </h3>
         </div>
-
+		<!-- Hook on the controller for this view and specify when to show it using ng-hide -->
         <div ng-controller="listCtrl as list" ng-hide="list.quizMetrics.quizActive || list.quizMetrics.resultsActive">
+        	<!-- top search bar with start quiz button using bootstrap -->
             <form class="form-inline well well-sm clearfix">
                 <span class="glyphicon glyphicon-search"></span>
                 <input 
@@ -35,50 +36,65 @@
                     <strong>Start Quiz</strong>
                 </button>
             </form>
+            <!-- row to contain the list of turtles -->
             <div class="row">
+                <!-- ng-repeat allows areas of markup to be repeated for a set number of times using model data -->
+		        <!-- in this case it is a property on the view model called data which is being filtered using the search -->
+		        <!-- property on the model -->
                 <div class="col-sm-6" ng-repeat="turtle in list.data | filter:list.search">
+                	<!-- using a bootstrap well to style -->
                     <div class="well well-sm">
                         <div class="row">
                             <div class="col-md-6">
+                            	<!-- ng-src instead of src to allow correct functionality with angular -->
                                 <img ng-src="{{turtle.image_url}}" 
                                     class="img-rounded img-responsive well-image">
                             </div>
                             <div class="col-md-6">
+                            	<!-- ng-src instead of src to allow correct functionality with angular -->
                                 <h4>{{turtle.type}}</h4>
+                                <!-- more angular data binding -->
                                 <p><strong>Locations: </strong>{{turtle.locations}}</p>
                                 <p><strong>Size: </strong>{{turtle.size}}</p>
                                 <p><strong>Average Lifespan: </strong>{{turtle.lifespan}}</p>
                                 <p><strong>Diet: </strong>{{turtle.diet}}</p>
+                                <!-- ng-click is an angular directive to allow click events within angular -->
+                        		<!-- data-toggle and data-target are bootstrap attributes to trigger the popup modal -->
                                 <button class="btn btn-primary pull-right"
                                     data-toggle="modal"
                                     data-target="#turtle-info"
                                     ng-click="list.changeActiveTurtle(turtle)">Learn More</button>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </div><!-- row -->
+                    </div><!-- well -->
+                </div><!-- col-xs-6 -->
             </div>
 
+			<!-- the markup for the modal -->
             <div class="modal" id="turtle-info">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
+                        	<!-- more usage of angular data binding -->
                             <h2>{{list.activeTurtle.type}}</h2>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-xs-8 col-xs-offset-2">
+                                	<!-- ng-src used again instead of src -->
                                     <img ng-src="{{list.activeTurtle.image_url}}" class="img-rounded img-responsive">
                                 </div>
                             </div>
                             <div class="row top-buffer">
                                 <div class="col-md-6">
+                                	<!-- angular data binding -->
                                     <p><strong>Locations: </strong>{{list.activeTurtle.locations}}</p>
                                     <p><strong>Size: </strong>{{list.activeTurtle.size}}</p>
                                     <p><strong>Average Lifespan: </strong>{{list.activeTurtle.lifespan}}</p>
                                     <p><strong>Diet: </strong>{{list.activeTurtle.diet}}</p>
                                 </div>
                                 <div class="col-xs-12 top-buffer">
+                                	<!-- angular data binding and data-dismiss for bootstrap -->
                                     <p>{{list.activeTurtle.description}}</p>
                                     <button class="btn btn-danger pull-right" 
                                         data-dismiss="modal">Close</button>
@@ -88,18 +104,24 @@
                     </div>
                 </div>
             </div>
-
         </div><!-- List Controller -->
 
+		<!-- Attach the quizCtrl to the view and ng-show when the quizActive flag is set -->
         <div ng-controller="quizCtrl as quiz" ng-show="quiz.quizMetrics.quizActive">
             <div class="row">
                 <div class="col-xs-8">
                     <h2>Progress:</h2>
                     <div class="btn-toolbar">
+                        <!-- ng-repeat to loop throuh all questions and display the button markup for each -->
+		                <!-- ng-class conditionally displaying bootstrap classes when a question has been answered or not -->
+		                <!-- ng-click to call method setActiveQuestion to move to selected question -->
+		                <!-- the $index argument is an angular variable that contains the index of the current ng-repeat iteration -->
                         <button class="btn"
                             ng-repeat="question in quiz.dataService.quizQuestions"
                             ng-class="{'btn-info': question.selected !== null, 'btn-danger': question.selected === null}" 
                             ng-click="quiz.setActiveQuestion($index)">
+	                        <!-- display glyphicons -->
+	                        <!-- ng-class to style glypicons -->
                             <span class="glyphicon"
                                 ng-class="{'glyphicon-pencil': question.selected !== null, 'glyphicon-question-sign': question.selected === null}"></span>
                         </button>
@@ -134,7 +156,16 @@
                 <div class="well well-sm" ng-hide="quiz.finalise">
                     <div class="row">
                         <div class="col-xs-12">
+                            <!-- angular {{}} notation for expressions to be evaluated -->
+		                    <!-- adds 1 to activeQuestion as it is zero index. Then displays the question -->
+		                    <!-- will be in the form of "3. this is the third question" -->
+		                    <!-- where the 3. is the incremented activeQuestion -->
                             <h4>{{quiz.activeQuestion+1 + ". " + quiz.dataService.quizQuestions[quiz.activeQuestion].text}}</h4>
+                            <!-- ng-if will only render the below markup when true. Unlike ng-show or ng-hide which -->
+		                    <!-- simply doesnt show the markup, but it is still rendered in the source. -->
+		                    <!-- ng-if will not even render the markup -->
+		                    <!-- this is done in the below two sections to aviod a url being displayed as a question -->
+		                    <!-- or text being entered as an image url and causing issues -->
                             <div class="row"
                                 ng-if="quiz.dataService.quizQuestions[quiz.activeQuestion].type === 'text'">
                                 <div class="col-sm-6" ng-repeat="answer in quiz.dataService.quizQuestions[quiz.activeQuestion].possibilities">
@@ -145,9 +176,12 @@
                                     </h4>
                                 </div>
                             </div>
-
+		                    <!-- notice the ng-if being used again -->
+		                    <!-- only the below section or the above section will display, never both -->
+		                    <!-- this will depend on if the current question is set to image or text -->
                             <div class="row"
                                 ng-if="quiz.dataService.quizQuestions[quiz.activeQuestion].type === 'image'">
+                                <!-- more bootstrap and another ng-repeat, this time looping through the possible answers -->
                                 <div class="col-sm-6" ng-repeat="answer in quiz.dataService.quizQuestions[quiz.activeQuestion].possibilities">
                                     <div class="image-answer"
                                         ng-class="{'image-selected': $index === quiz.dataService.quizQuestions[quiz.activeQuestion].selected}"
@@ -160,9 +194,14 @@
 
                         </div>
                     </div>
+                    <!-- ng-click will call the questionAnswered method on the controller -->
                     <button class="btn btn-warning" ng-click="quiz.questionAnswered()">Continue</button>
                 </div>
 
+				<!-- this section is the prompt to be show when the user finishes the quiz to ensure they want to continue -->
+		        <!-- it only shows when the finalise flag is true -->
+		        <!-- clicking yes will call the finaliseAnswers method which will send the user to the results page -->
+		        <!-- clicking no will remove the finalise flag and this put the user back into the quiz interface -->
                 <div class="well well-sm" ng-show="quiz.finalise">
                     <div class="row">
                         <div class="col-xs-12">
@@ -177,15 +216,28 @@
             </div><!-- question row -->
         </div><!-- quiz controller -->
 
+		<!-- letting angular know which controller to use for this view and when to show the view using ng-show -->
         <div ng-controller="resultsCtrl as results" ng-show="results.quizMetrics.resultsActive">
            <div class="row">
                <div class="col-xs-8">
                    <h2>Results:</h2>
                    <div class="btn-toolbar">
+                    	<!-- ng-repeat used again to loop through the possible answers to thequestions which are stored on -->
+		                <!-- the controller. The controller got that data from the quiz factory in js/factory/quiz.js -->
+
+		                <!-- ng-class is another angular directive. This directive will add a class to the element based  -->
+		                <!-- on the conditional it is provided. In this case it will add btn-sucess class if question.correct -->
+		                <!-- is true and will add btn-danger class if question.correct is false -->
+
+		                <!-- ng-click is again used to trigger a method on the controller called setActiveQuestion -->
+		                <!-- the method is passed the $index as an argument. $index is built into angular and holds -->
+		                <!-- the current index of the ng-repeat loop -->
                        <button class="btn"
                            ng-repeat="question in results.dataService.quizQuestions"
                            ng-class="{'btn-success': question.correct, 'btn-danger': !question.correct}"
                            ng-click="results.setActiveQuestion($index)">
+                            <!-- display glyphicons -->
+                        	<!-- ng-class is utilsed again to style the glyphicons conditionally -->
                             <span class="glyphicon"
                                 ng-class="{'glyphicon-ok': question.correct, 'glyphicon-remove': !question.correct}"></span>
                        </button>
@@ -210,10 +262,14 @@
                </div>
            </div><!-- row -->
 
+			<!-- display the score and percentage to the user -->
            <div class="row">
                <div class="col-xs-12 top-buffer">
-                   <h2>You Scored {{results.quizMetrics.numCorrect}} / {{results.dataService.quizQuestions.length}}</h2>
-                   <h2><strong>{{results.calculatePerc() | number:2}}%</strong></h2>
+               		<!-- the score is displayed using simple angular expressions -->
+                    <h2>You Scored {{results.quizMetrics.numCorrect}} / {{results.dataService.quizQuestions.length}}</h2>
+                    <!-- the percentage is calculated using a method which is then filtered using the number filter -->
+            		<!-- which ensures only 2 decimal places will be shown -->
+                    <h2><strong>{{results.calculatePerc() | number:2}}%</strong></h2>
                </div>
            </div>
 
@@ -222,15 +278,19 @@
                <div class="well well-sm">
                    <div class="row">
                        <div class="col-xs-12">
+		                    <!-- the below may look strange. -->
+		                    <!-- the angular expression will add 1 to the active question, because it is 0 index -->
+		                    <!-- it then displays it with a . after it followed by the question. -->
+		                    <!-- something like this "3. This is the third question:" -->
                            <h4>{{results.activeQuestion+1 +". "+results.dataService.quizQuestions[results.activeQuestion].text}}</h4>
-
-
                            <div class="row"
                                ng-if="results.dataService.quizQuestions[results.activeQuestion].type === 'text'">
+                               <!-- ng-repeat being utilised again -->
                                <div class="col-sm-6" ng-repeat="answer in results.dataService.quizQuestions[results.activeQuestion].possibilities">
                                    <h4 class="answer"
                                        ng-class="results.getAnswerClass($index)">
                                        {{answer.answer}}
+                                       <!-- more usage of the ng-show directive to selectively show the elements on condition -->
                                        <p class="pull-right"
                                             ng-show="$index !== results.quizMetrics.correctAnswers[results.activeQuestion] && $index === results.dataService.quizQuestions[results.activeQuestion].selected">Your Answer</p>
                                        <p class="pull-right"
@@ -239,9 +299,12 @@
                                </div>
                            </div><!-- row -->
 
+							<!-- more ng-if -->
                            <div class="row"
                                ng-if="results.dataService.quizQuestions[results.activeQuestion].type === 'image'">
+                               <!-- more ng-repeat -->
                                <div class="col-sm-6" ng-repeat="answer in results.dataService.quizQuestions[results.activeQuestion].possibilities">
+                               		<!-- ng-class and ng-src -->
                                    <div class="image-answer"
                                        ng-class="results.getAnswerClass($index)">
                                        <img ng-src="{{answer.answer}}">
@@ -253,7 +316,7 @@
                        </div>
                    </div>
                </div><!-- well -->
-
+				<!-- ng-click calling the reset method on the controller -->
                <button class="btn btn-primary btn-lg" ng-click="results.reset()">Go Back To Facts</button>
            </div>
         </div>

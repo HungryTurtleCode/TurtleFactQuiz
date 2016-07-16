@@ -134,28 +134,34 @@
         function questionAnswered(){
             // set quizLength variable to keep code clean
             var quizLength = DataService.quizQuestions.length;
-
-            if(DataService.quizQuestions[vm.activeQuestion].selected !== null){
-                numQuestionsAnswered++;
-                if(numQuestionsAnswered >= quizLength){
-                    // final check to ensure all questions are actuall answered
-                    for(var i = 0; i < quizLength; i++){
-                        /*
-                         * if find a question that is not answered, set it to 
-                         * active question then return from this function 
-                         * to ensure finalise flag is not set
-                         */
-                        if(DataService.quizQuestions[i].selected === null){
-                            setActiveQuestion(i);
-                            return;
+            
+            numQuestionsAnswered = 0;
+            //For loop added to loop through all questions and recount questions
+            //that have been answered. This avoids infinite loops.
+            for(var x = 0; x < quizLength; x++){
+                if(DataService.quizQuestions[vm.activeQuestion].selected !== null){
+                    numQuestionsAnswered++;
+                    if(numQuestionsAnswered >= quizLength){
+                        // final check to ensure all questions are actuall answered
+                        for(var i = 0; i < quizLength; i++){
+                            /*
+                             * if find a question that is not answered, set it to 
+                             * active question then return from this function 
+                             * to ensure finalise flag is not set
+                             */
+                            if(DataService.quizQuestions[i].selected === null){
+                                setActiveQuestion(i);
+                                return;
+                            }
                         }
+                        // set finalise flag and remove any existing warnings
+                        vm.error = false;
+                        vm.finalise = true;
+                        return;
                     }
-                    // set finalise flag and remove any existing warnings
-                    vm.error = false;
-                    vm.finalise = true;
-                    return;
                 }
             }
+
             /*
              * There are still questions to answer so increment to next 
              * unanswered question using the setActiveQuestion method

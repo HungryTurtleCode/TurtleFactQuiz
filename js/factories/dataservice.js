@@ -27,37 +27,37 @@
             correctAnswers: correctAnswers
         };
 
-        // returning the dataObj to anything that uses this factory as a 
+        // returning the dataObj to anything that uses this factory as a
         // dependency
         return dataObj;
     }
 
     /*
-     * all of the below variables are simulating data that would typically be 
+     * all of the below variables are simulating data that would typically be
      * retrieved using an HTTP call to an API endpoint.
      *
      * For simplicity sake this data is hardcoded into the app as this tutorial
      * is about building the angular app, not the backend.
      *
-     * The correctAnswers variable would be retrieved when the user has 
-     * finished the quiz and would be used to mark the users answers against 
+     * The correctAnswers variable would be retrieved when the user has
+     * finished the quiz and would be used to mark the users answers against
      * the correct answers
      *
-     * the quizQuestions is an array of objects, each containing data 
+     * the quizQuestions is an array of objects, each containing data
      * pertaining to a single question. This includes:
      *                          - The type of question: image or text
      *                          - Text of the question (aka the actual question)
-     *                          - A set of 4 possible answers, either text or 
+     *                          - A set of 4 possible answers, either text or
      *                              images as indicated above
      *                          - a selected flag which will be used to know if
-     *                              the user has selected 
+     *                              the user has selected
      *                          an answer yet.
-     *                          - Whether the user got the question correct or 
+     *                          - Whether the user got the question correct or
      *                              not
      *
-     * The final turtleData variable hold the information that will be 
-     * displayed in the list view when the app loads. This includes the name 
-     * and an image of each turtle as well as other information such as the 
+     * The final turtleData variable hold the information that will be
+     * displayed in the list view when the app loads. This includes the name
+     * and an image of each turtle as well as other information such as the
      * location and the size of the turtles
      *
      */
@@ -110,16 +110,16 @@
             text: "Which of these is the Alligator Snapping Turtle?",
             possibilities: [
                 {
-                    answer: "https://c1.staticflickr.com/3/2182/2399413165_bcc8031cac_z.jpg?zz=1"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573536/2399413165_bcc8031cac_z_fqaexq.jpg"
                 },
                 {
-                    answer: "http://images.nationalgeographic.com/wpf/media-live/photos/000/006/cache/ridley-sea-turtle_688_600x450.jpg"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573475/olive-ridley1_bdrbzh.jpg"
                 },
                 {
-                    answer: "https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2011/8/13/1313246505515/Leatherback-turtle-007.jpg"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573717/Leatherback-turtle-007_p1qytx.jpg"
                 },
                 {
-                    answer: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Alligator_snapping_turtle_-_Geierschildkr%C3%B6te_-_Alligatorschildkr%C3%B6te_-_Macrochelys_temminckii_01.jpg"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573639/Alligator_snapping_turtle_-_Geierschildkr_C3_B6te_-_Alligatorschildkr_C3_B6te_-_Macrochelys_temminckii_01_uwqvbi.jpg"
                 }
             ],
             selected: null,
@@ -130,16 +130,16 @@
             text: "Which of these is the Green Turtle?",
             possibilities: [
                 {
-                    answer: "http://www.what-do-turtles-eat.com/wp-content/uploads/2014/10/Sea-Turtles-Habitat.jpg"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573240/Sea-Turtles-Habitat_kiipu7.jpg"
                 },
                 {
-                    answer: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Kemp's_Ridley_sea_turtle_nesting.JPG"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573596/Kemp_s_Ridley_sea_turtle_nesting_jqe0fg.jpg"
                 },
                 {
-                    answer: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Alligator_snapping_turtle_-_Geierschildkr%C3%B6te_-_Alligatorschildkr%C3%B6te_-_Macrochelys_temminckii_01.jpg"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573639/Alligator_snapping_turtle_-_Geierschildkr_C3_B6te_-_Alligatorschildkr_C3_B6te_-_Macrochelys_temminckii_01_uwqvbi.jpg"
                 },
                 {
-                    answer: "http://assets.worldwildlife.org/photos/163/images/carousel_small/SCR_290360hawskbill-why-matter-LG.jpg?1345565532"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573676/SCR_290360hawskbill-why-matter-LG_wqf0kl.jpg"
                 }
             ],
             selected: null,
@@ -210,16 +210,16 @@
             text: "Which of these is the Olive Ridley Turtle?",
             possibilities: [
                 {
-                    answer: "http://i.telegraph.co.uk/multimedia/archive/02651/loggerheadTurtle_2651448b.jpg"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573757/loggerheadTurtle_2651448b_fuxtrz.jpg"
                 },
                 {
-                    answer: "http://assets.worldwildlife.org/photos/163/images/carousel_small/SCR_290360hawskbill-why-matter-LG.jpg?1345565532"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573676/SCR_290360hawskbill-why-matter-LG_wqf0kl.jpg"
                 },
                 {
-                    answer: "http://images.nationalgeographic.com/wpf/media-live/photos/000/006/cache/ridley-sea-turtle_688_600x450.jpg"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573475/olive-ridley1_bdrbzh.jpg"
                 },
                 {
-                    answer: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Kemp's_Ridley_sea_turtle_nesting.JPG"
+                    answer: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_560/v1538573596/Kemp_s_Ridley_sea_turtle_nesting_jqe0fg.jpg"
                 }
             ],
             selected: null,
@@ -270,7 +270,7 @@
     var turtlesData = [
         {
             type: "Green Turtle",
-            image_url: "http://www.what-do-turtles-eat.com/wp-content/uploads/2014/10/Sea-Turtles-Habitat.jpg",
+            image_url: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_300/v1538573240/Sea-Turtles-Habitat_kiipu7.jpg",
             locations: "Tropical and subtropical oceans worldwide",
             size: "Up to 1.5m and up to 300kg",
             lifespan: "Over 80 years",
@@ -279,7 +279,7 @@
         },
         {
             type: "Loggerhead Turtle",
-            image_url: "http://i.telegraph.co.uk/multimedia/archive/02651/loggerheadTurtle_2651448b.jpg",
+            image_url: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_300/v1538573757/loggerheadTurtle_2651448b_fuxtrz.jpg",
             locations: "Tropical and subtropical oceans worldwide",
             size: "90cm, 115kg",
             lifespan: "More than 50 years",
@@ -288,7 +288,7 @@
         },
         {
             type: "Leatherback Turtle",
-            image_url: "https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2011/8/13/1313246505515/Leatherback-turtle-007.jpg",
+            image_url: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_300/v1538573717/Leatherback-turtle-007_p1qytx.jpg",
             locations: "All tropical and subtropical oceans",
             size: "Up to 2m, up to 900kg",
             lifespan: "45 years",
@@ -297,7 +297,7 @@
         },
         {
             type: "Hawksbill Sea Turtle",
-            image_url: "http://assets.worldwildlife.org/photos/163/images/carousel_small/SCR_290360hawskbill-why-matter-LG.jpg?1345565532",
+            image_url: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_300/v1538573676/SCR_290360hawskbill-why-matter-LG_wqf0kl.jpg",
             locations: "Tropical Coastal areas around the world",
             size: "Over 1m, 45-68kg",
             lifespan: "30-50 Years",
@@ -306,7 +306,7 @@
         },
         {
             type: "Alligator Snapping Turtle",
-            image_url: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Alligator_snapping_turtle_-_Geierschildkr%C3%B6te_-_Alligatorschildkr%C3%B6te_-_Macrochelys_temminckii_01.jpg",
+          image_url: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_300/v1538573639/Alligator_snapping_turtle_-_Geierschildkr_C3_B6te_-_Alligatorschildkr_C3_B6te_-_Macrochelys_temminckii_01_uwqvbi.jpg",
             locations: "Along the Atlantic Coast of USA",
             size: "around 60cm, up to 100kg",
             lifespan: "20-70 years",
@@ -315,7 +315,7 @@
         },
         {
             type: "Kemp's Ridley Sea Turtle",
-            image_url: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Kemp's_Ridley_sea_turtle_nesting.JPG",
+            image_url: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_300/v1538573596/Kemp_s_Ridley_sea_turtle_nesting_jqe0fg.jpg",
             locations: "Coastal areas of the North Atlantic",
             size: "65cm, up to 45kg",
             lifespan: "Around 50 years",
@@ -324,7 +324,7 @@
         },
         {
             type: "Olive Ridley Turtle",
-            image_url: "http://images.nationalgeographic.com/wpf/media-live/photos/000/006/cache/ridley-sea-turtle_688_600x450.jpg",
+            image_url: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_300/v1538573475/olive-ridley1_bdrbzh.jpg",
             locations: "Tropical coastal areas around the world",
             size: "70cm, 45kg",
             lifespan: "50 years",
@@ -333,7 +333,7 @@
         },
         {
             type: "Eastern Snake Necked Turtle",
-            image_url: "https://c1.staticflickr.com/3/2182/2399413165_bcc8031cac_z.jpg?zz=1",
+            image_url: "https://res.cloudinary.com/djxscnpzf/image/upload/c_scale,w_300/v1538573536/2399413165_bcc8031cac_z_fqaexq.jpg",
             locations: "Eastern Australia",
             size: "Up to 30cm",
             lifespan: "25 years",

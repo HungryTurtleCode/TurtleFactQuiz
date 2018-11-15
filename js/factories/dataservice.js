@@ -10,10 +10,12 @@
         .module("turtleFacts")
         .factory("DataService", DataService);
 
+    DataService.$inject = ['$http'];
+
     /*
      * Actual definition of the function used for this factory
      */
-    function DataService(){
+    function DataService($http){
         /*
          * dataObj is used to simulate getting the data from a backend server
          * The object will hold data which will then be returned to the other
@@ -21,15 +23,66 @@
          * as a dependency
          */
 
-        var dataObj = {
-            turtlesData: turtlesData,
-            quizQuestions: quizQuestions,
-            correctAnswers: correctAnswers
-        };
+      var dataObj = {
+        turtlesData: [],
+        quizQuestions: [],
+        correctAnswers: [],
+        getTurtleData,
+        getQuizQuestions,
+        getCorrectAnswers,
+      };
 
-        // returning the dataObj to anything that uses this factory as a
-        // dependency
-        return dataObj;
+      return dataObj;
+
+      function getTurtleData() {
+        return $http.get('http://localhost:8080/api/data')
+          .then(res => {
+            dataObj.turtleData = res.data.map(data => {
+              return {
+                type: data.fact_type,
+                image_url: data.fact_image_url,
+                locations: data.fact_data.locations,
+                size: data.fact_data.size,
+                lifespan: data.fact_data.lifespan,
+                diet: data.fact_data.diet,
+                description: data.fact_description,
+              }
+            });
+            return dataObj.turtleData;
+          });
+      }
+
+      function getQuizQuestions() {
+        return $http.get('http://localhost:8080/api/questions')
+          .then(res => {
+            dataObj.quizQuestions = res.data.map(data => {
+              return {
+                type: data.question_type,
+                text: data.question_text,
+                possibilities: data.question_possibilities,
+                id: data._id,
+                selected: null,
+                correct: null,
+              }
+            });
+            return dataObj.quizQuestions;
+          });
+      }
+
+      function getCorrectAnswers() {
+        return $http.get('http://localhost:8080/api/answers')
+          .then(res => {
+            const answerData = res.data;
+            dataObj.correctAnswers = dataObj.quizQuestions.map(q => {
+              const answer = answerData[q.id];
+              for (let i = 0; i < q.possibilities.length; i++) {
+                if (q.possibilities[i].answer === answer) {
+                  return i;
+                }
+              }
+            });
+          });
+      }
     }
 
     /*
